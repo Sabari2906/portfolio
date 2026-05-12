@@ -18,7 +18,7 @@ function animateRing() {
 }
 animateRing();
 
-document.querySelectorAll('a, button, .skill-card, .project-card, .template-card, .testimonial-card, .impact-item').forEach(el => {
+document.querySelectorAll('a, button, .skill-card, .project-card, .template-card, .testimonial-card, .impact-item, .tech-item').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.style.transform = 'translate(-50%,-50%) scale(2)';
     ring.style.width = '60px';
@@ -167,6 +167,41 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(a => {
     a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
   });
+});
+
+// TECH STACK MODAL
+const techStackModal = document.getElementById('techStackModal');
+const techStackBtn = document.getElementById('techStackBtn');
+const techStackModalClose = document.getElementById('techStackModalClose');
+
+function openTechStackModal() {
+  techStackModal.classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function closeTechStackModal() {
+  techStackModal.classList.remove('active');
+  document.body.style.overflow = 'auto'; // Allow scrolling
+}
+
+// Open modal on button click
+techStackBtn.addEventListener('click', openTechStackModal);
+
+// Close modal on close button
+techStackModalClose.addEventListener('click', closeTechStackModal);
+
+// Close modal when clicking outside
+techStackModal.addEventListener('click', (e) => {
+  if (e.target === techStackModal) {
+    closeTechStackModal();
+  }
+});
+
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && techStackModal.classList.contains('active')) {
+    closeTechStackModal();
+  }
 });
 
 // Coming Soon Modal - Initialize when DOM is ready

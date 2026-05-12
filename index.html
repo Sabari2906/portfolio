@@ -46,35 +46,77 @@
           <a href="#contact" class="btn-ghost">Get In Touch</a>
         </div>
         <div class="cta-row">
-        <a href="assets/docs/Resume.pdf" class="btn-primary" download><span>Download Resume</span></a></div>
+          <a href="assets/docs/Resume.pdf" class="btn-primary" download><span>Download Resume</span></a>
+          <button class="btn-tech-stack" id="techStackBtn">View My Techs</button>
+        </div>
       </div>
     </div>
-    <div class="hero-tech-stack">
-      <img src="assets/images/tech/HTML5.png" alt="HTML">
-      <img src="assets/images/tech/CSS.png" alt="CSS">
-      <img src="assets/images/tech/js.png" alt="JavaScript">
-      <img src="assets/images/tech/Python.png" alt="Python">
-      <img src="assets/images/tech/react.png" alt="React">
-      <img src="assets/images/tech/node.png" alt="Node.js">
-      <img src="assets/images/tech/GitHub.png" alt="Github">
-      <img src="assets/images/tech/mysql.png" alt="MySQL">
-      <img src="assets/images/tech/VSCode.png" alt="VSCode">      
-      <img src="assets/images/tech/docker.png" alt="Docker">
-      <img src="assets/images/tech/Flutter1.png" alt="Flutter">
-      <img src="assets/images/tech/LinkedIn.png" alt="LinkedIn">
-    </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">Fresher</div>
-      <div class="stat-label">Experience</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">5</div>
-      <div class="stat-label">Projects</div>
+    <div class="hero-tech-stack-placeholder">
+      <!-- Tech stack will be shown in modal -->
     </div>
   </div>
 </section>
+
+<!-- TECH STACK MODAL -->
+<div class="tech-stack-modal" id="techStackModal">
+  <div class="tech-stack-modal-content">
+    <button class="tech-stack-modal-close" id="techStackModalClose">&times;</button>
+    <div class="tech-stack-modal-header">
+      <h2>My Tech Stack</h2>
+      <p>Tools & Technologies I Work With</p>
+    </div>
+    <div class="tech-stack-grid">
+      <div class="tech-item">
+        <img src="assets/images/tech/HTML5.png" alt="HTML">
+        <span>HTML</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/CSS.png" alt="CSS">
+        <span>CSS</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/js.png" alt="JavaScript">
+        <span>JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/Python.png" alt="Python">
+        <span>Python</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/react.png" alt="React">
+        <span>React</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/node.png" alt="Node.js">
+        <span>Node.js</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/GitHub.png" alt="GitHub">
+        <span>GitHub</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/mysql.png" alt="MySQL">
+        <span>MySQL</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/VSCode.png" alt="VSCode">
+        <span>VSCode</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/docker.png" alt="Docker">
+        <span>Docker</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/Flutter1.png" alt="Flutter">
+        <span>Flutter</span>
+      </div>
+      <div class="tech-item">
+        <img src="assets/images/tech/LinkedIn.png" alt="LinkedIn">
+        <span>LinkedIn</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section id="about">
