@@ -220,8 +220,10 @@ nav {
   background: transparent;
   border: none;
   border-radius: 12px;
-  margin-bottom: 30px;  margin-right: 125px;  flex: 0 0 auto;
-  width: 340px;
+  margin: 30px 0;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 380px;
 }
 .hero-tech-stack img {
   width: 80px;
@@ -1101,14 +1103,68 @@ footer {
 
 /* Mobile responsive quick fixes */
 @media (max-width: 768px) {
+  /* Hide custom cursor on mobile */
+  .cursor, .cursor-ring { display: none !important; }
+  body { cursor: auto; }
+  
   nav { padding: 16px 24px; }
   .nav-links { display: none; }
   section { padding: 60px 24px; }
-  #hero { padding: 100px 24px 60px; }
+  
+  /* Hero section fixes */
+  #hero { 
+    padding: 100px 24px 60px; 
+    flex-direction: column;
+  }
+  .hero-content { 
+    flex-direction: column; 
+    gap: 40px;
+  }
+  .hero-left { flex: 1; }
   .hero-stats { display: none; }
-  .about-grid, .contact-inner { grid-template-columns: 1fr; }
+  
+  /* Tech stack fixes */
+  .hero-tech-stack {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 30px 0 !important;
+    padding: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .hero-tech-stack img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* About section fixes */
+  .about-grid { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+  }
+  .about-img-wrap {
+    margin-top: 0;
+  }
+  
+  .contact-inner { grid-template-columns: 1fr; }
   .skills-grid, .projects-grid, .insights-grid, .template-grid { grid-template-columns: 1fr; }
   .impact-bar { grid-template-columns: repeat(2, 1fr); }
   .workflow-diagram { flex-direction: column; align-items: flex-start; }
   footer { flex-direction: column; gap: 16px; text-align: center; }
+  
+  /* Contact form mobile fixes */
+  .contact-form {
+    width: 100%;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .hero-tech-stack {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-tech-stack img {
+    width: 50px;
+    height: 50px;
+  }
 }
