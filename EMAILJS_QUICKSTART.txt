@@ -1,0 +1,66 @@
+# Email.js Setup - Sabari's Portfolio
+
+## Quick Setup Steps:
+
+### 1️⃣ Email.js Account
+- Sign up FREE: https://www.emailjs.com/
+- Get your Public Key from Dashboard
+- Copy and paste into `js/script.js` line 2
+
+### 2️⃣ Gmail Service Setup
+- In Email.js Dashboard → Email Services
+- Click "Add Service"
+- Select "Gmail"
+- Authorize your Gmail account
+- Copy the Service ID
+
+### 3️⃣ Email Template
+- In Email.js Dashboard → Email Templates
+- Click "Create New Template"
+- Use these settings:
+  - **Template ID**: `template_sabari_contact`
+  - **Receiver Email**: `{{to_email}}`
+  - **Subject Line**: `New Contact from {{from_name}}`
+
+Template Body:
+```
+Hello,
+
+You have a new message from your portfolio:
+
+Name: {{from_name}}
+Email: {{from_email}}
+Project: {{project_name}}
+
+Message:
+{{message}}
+
+---
+Best wishes,
+Contact Form from sabarimani.com
+```
+
+### 4️⃣ Update Configuration
+In `js/script.js` around line 2-3:
+```javascript
+emailjs.init('YOUR_PUBLIC_KEY_HERE'); // Replace with your public key
+emailjs.send('YOUR_SERVICE_ID', 'template_sabari_contact', templateParams)
+```
+
+## ✅ Testing
+1. Open index.html
+2. Scroll to Contact section
+3. Fill form and submit
+4. Check email within 5 seconds
+5. Check spam folder if needed
+
+## 🚀 Deployment
+After setup is working:
+- Visit https://vercel.com
+- Click "New Project"
+- Upload your portfolio folder
+- Deploy instantly (FREE!)
+
+## Support
+- Email.js Help: https://www.emailjs.com/docs/
+- Having issues? Check browser console (F12 key)
