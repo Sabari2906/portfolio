@@ -63,11 +63,6 @@ function validateEmail(email) {
   return emailRegex.test(email);
 }
 
-function validatePhone(phone) {
-  const phoneRegex = /^[0-9\-\+\(\)\s]{10,}$/;
-  return phoneRegex.test(phone.trim());
-}
-
 function sanitizeInput(input) {
   // Remove dangerous characters
   return input.trim().replace(/[<>]/g, '');
@@ -91,7 +86,6 @@ function handleForm(e) {
   
   // Get and sanitize form values
   const userName = sanitizeInput(document.getElementById('user_name').value);
-  const userPhone = sanitizeInput(document.getElementById('user_phone').value);
   const userEmail = sanitizeInput(document.getElementById('user_email').value);
   const projectName = sanitizeInput(document.getElementById('project_name').value);
   const message = sanitizeInput(document.getElementById('message').value);
@@ -109,12 +103,6 @@ function handleForm(e) {
     return;
   }
   
-  if (!validatePhone(userPhone)) {
-    btn.textContent = '✗ Invalid phone number';
-    setTimeout(() => { btn.textContent = 'Send Message →'; }, 2000);
-    return;
-  }
-  
   if (!message || message.length < 5 || message.length > 1000) {
     btn.textContent = '✗ Message must be 5-1000 characters';
     setTimeout(() => { btn.textContent = 'Send Message →'; }, 2000);
@@ -127,7 +115,6 @@ function handleForm(e) {
   const templateParams = {
     to_email: 'manisabari2004@gmail.com',
     from_name: userName,
-    from_phone: userPhone,
     from_email: userEmail,
     project_name: projectName,
     message: message,
@@ -136,7 +123,8 @@ function handleForm(e) {
   
   // Send email using Email.js - Check if library is available
   if (typeof emailjs === 'undefined') {
-    btn.textContent = '✗ Email service unavailable';
+    console.error('EmailJS not loaded');
+    btn.textContent = '✗ Service loading...';
     setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     return;
   }
@@ -149,14 +137,26 @@ function handleForm(e) {
       setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     })
     .catch((error) => {
-      console.log('FAILED...', error);
+      console.error('FAILED...', error);
       btn.textContent = '✗ Failed. Try again';
       setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     });
 }
 
-// Attach form submission handler
-document.getElementById('contactForm').addEventListener('submit', handleForm);
+// Attach form submission handler - Wait for DOM to load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', handleForm);
+    }
+  });
+} else {
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleForm);
+  }
+}
 
 // Nav active state
 const sections = document.querySelectorAll('section[id]');
