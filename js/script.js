@@ -46,12 +46,9 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
-// Initialize Email.js - Check if it exists first
-if (typeof emailjs !== 'undefined') {
-  emailjs.init('xtDHmh9-3ydF-VOTI'); // Public Key - Safe to expose
-} else {
-  console.warn('EmailJS library failed to load');
-}
+// Email.js is initialized in index.html
+let emailjsReady = true;
+console.log('✓ Script.js loaded');
 
 // Rate limiting - prevent spam
 let lastSubmitTime = 0;
@@ -111,51 +108,54 @@ function handleForm(e) {
   
   btn.textContent = 'Sending...';
   
+  // Check if Email.js is ready
+  if (typeof emailjs === 'undefined') {
+    console.error('✗ emailjs is not defined');
+    btn.textContent = '✗ Email service not ready';
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+    return;
+  }
+  
   // Prepare email parameters
   const templateParams = {
     to_email: 'manisabari2004@gmail.com',
     from_name: userName,
     from_email: userEmail,
-    project_name: projectName,
+    project_name: projectName || 'Not specified',
     message: message,
     reply_to: userEmail
   };
   
-  // Send email using Email.js - Check if library is available
-  if (typeof emailjs === 'undefined') {
-    console.error('EmailJS not loaded');
-    btn.textContent = '✗ Service loading...';
-    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
-    return;
-  }
+  console.log('📧 Sending email with params:', templateParams);
   
   emailjs.send('service_d2g9qhs', 'template_okvmmbs', templateParams)
     .then((response) => {
-      console.log('SUCCESS!', response.status, response.text);
+      console.log('✓ SUCCESS! Email sent:', response.status);
       btn.textContent = '✓ Message Sent!';
       form.reset();
       setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     })
     .catch((error) => {
-      console.error('FAILED...', error);
-      btn.textContent = '✗ Failed. Try again';
+      console.error('✗ FAILED! Error:', error);
+      console.error('Error message:', error.text);
+      btn.textContent = '✗ Failed - ' + (error.text || 'Try again');
       setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     });
 }
 
-// Attach form submission handler - Wait for DOM to load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', handleForm);
-    }
-  });
-} else {
+// Attach form submission handler
+document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', handleForm);
+    console.log('✓ Contact form listener attached');
   }
+});
+
+// Also try immediately in case DOM is already loaded
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', handleForm);
 }
 
 // Nav active state
