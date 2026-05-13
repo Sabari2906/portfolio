@@ -47,7 +47,22 @@ window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
 // Email.js is initialized in index.html
-let emailjsReady = true;
+let emailjsReady = false;
+
+// Listen for Email.js ready event
+document.addEventListener('emailjsready', function() {
+  emailjsReady = true;
+  console.log('✓ Script detected Email.js is ready');
+});
+
+// Also check periodically
+setTimeout(() => {
+  if (typeof emailjs !== 'undefined' && !emailjsReady) {
+    emailjsReady = true;
+    console.log('✓ Email.js detected as ready');
+  }
+}, 1000);
+
 console.log('✓ Script.js loaded');
 
 // Rate limiting - prevent spam
@@ -109,10 +124,13 @@ function handleForm(e) {
   btn.textContent = 'Sending...';
   
   // Check if Email.js is ready
-  if (typeof emailjs === 'undefined') {
-    console.error('✗ emailjs is not defined');
-    btn.textContent = '✗ Email service not ready';
-    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+  if (typeof emailjs === 'undefined' || !emailjsReady) {
+    console.error('✗ emailjs not ready. emailjs type:', typeof emailjs, 'ready flag:', emailjsReady);
+    btn.textContent = '✗ Service loading...';
+    setTimeout(() => { 
+      btn.textContent = 'Send Message →';
+      console.warn('⚠ Email.js still not ready - try again in a moment');
+    }, 3000);
     return;
   }
   
@@ -126,21 +144,27 @@ function handleForm(e) {
     reply_to: userEmail
   };
   
-  console.log('📧 Sending email with params:', templateParams);
+  console.log('📧 Sending email...');
+  console.log('Params:', templateParams);
   
-  emailjs.send('service_d2g9qhs', 'template_okvmmbs', templateParams)
-    .then((response) => {
-      console.log('✓ SUCCESS! Email sent:', response.status);
-      btn.textContent = '✓ Message Sent!';
-      form.reset();
-      setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
-    })
-    .catch((error) => {
-      console.error('✗ FAILED! Error:', error);
-      console.error('Error message:', error.text);
-      btn.textContent = '✗ Failed - ' + (error.text || 'Try again');
-      setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
-    });
+  try {
+    emailjs.send('service_d2g9qhs', 'template_okvmmbs', templateParams)
+      .then((response) => {
+        console.log('✓ SUCCESS! Response:', response);
+        btn.textContent = '✓ Message Sent!';
+        form.reset();
+        setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+      })
+      .catch((error) => {
+        console.error('✗ FAILED! Error:', error);
+        btn.textContent = '✗ Failed. Try again';
+        setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+      });
+  } catch (err) {
+    console.error('✗ Exception:', err);
+    btn.textContent = '✗ Error - Check console';
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+  }
 }
 
 // Attach form submission handler

@@ -422,15 +422,24 @@ Features include user authentication, progress tracking, and multimedia content 
   </div>
 </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
-<script type="text/javascript">
-  (function() {
-    // Initialize Email.js v4
-    emailjs.init({
-      publicKey: 'xtDHmh9-3ydF-VOTI'
-    });
-    console.log('✓ Email.js v4 initialized');
-  })();
+<script src="https://unpkg.com/@emailjs/browser@4/dist/index.global.js"></script>
+<script>
+  // Wait for Email.js to load
+  function initEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init('xtDHmh9-3ydF-VOTI');
+      console.log('✓ Email.js initialized successfully');
+      window.emailjsReady = true;
+      // Trigger custom event for other scripts
+      document.dispatchEvent(new Event('emailjsready'));
+    } else {
+      console.warn('Email.js not loaded yet, retrying...');
+      setTimeout(initEmailJS, 500);
+    }
+  }
+  
+  // Start initialization immediately
+  initEmailJS();
 </script>
 <script src="js/script.js"></script>
 </body>
