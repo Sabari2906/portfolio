@@ -48,7 +48,7 @@ revealOnScroll();
 
 // Initialize Email.js - Check if it exists first
 if (typeof emailjs !== 'undefined') {
-  emailjs.init('7YRqFFFcAX_a0c0vD'); // Public Key - Safe to expose
+  emailjs.init('xtDHmh9-3ydF-VOTI'); // Public Key - Safe to expose
 } else {
   console.warn('EmailJS library failed to load');
 }
@@ -141,7 +141,7 @@ function handleForm(e) {
     return;
   }
   
-  emailjs.send('service_sabari_portfolio', 'template_sabari_contact', templateParams)
+  emailjs.send('service_d2g9qhs', 'template_okvmmbs', templateParams)
     .then((response) => {
       console.log('SUCCESS!', response.status, response.text);
       btn.textContent = '✓ Message Sent!';
