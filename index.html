@@ -422,24 +422,26 @@ Features include user authentication, progress tracking, and multimedia content 
   </div>
 </div>
 
+<script async src="https://unpkg.com/@emailjs/browser@4/dist/index.global.js"></script>
 <script>
-  // Dynamically load Email.js with onload / onerror handling.
-  const emailjsScript = document.createElement('script');
-  emailjsScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/index.global.js';
-  emailjsScript.onload = () => {
+  // Initialize Email.js when ready
+  function initEmailJSWhenReady() {
     if (typeof emailjs !== 'undefined') {
       emailjs.init('xtDHmh9-3ydF-VOTI');
       console.log('✓ Email.js initialized successfully');
       window.emailjsReady = true;
       document.dispatchEvent(new Event('emailjsready'));
+    } else if (window.emailjsRetries < 50) {
+      window.emailjsRetries = (window.emailjsRetries || 0) + 1;
+      setTimeout(initEmailJSWhenReady, 100);
     } else {
-      console.error('✗ Email.js loaded, but emailjs is undefined.');
+      console.error('✗ Email.js failed to load after 5 seconds');
+      window.emailjsReady = false;
     }
-  };
-  emailjsScript.onerror = () => {
-    console.error('✗ Failed to load Email.js. Please check network access or script URL.');
-  };
-  document.head.appendChild(emailjsScript);
+  }
+  
+  // Start checking immediately
+  initEmailJSWhenReady();
 </script>
 <script src="js/script.js"></script>
 </body>

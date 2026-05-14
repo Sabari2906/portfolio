@@ -46,22 +46,24 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
-// Email.js is initialized in index.html
+// Email.js initialization flag
 let emailjsReady = false;
 
-// Listen for Email.js ready event
+// Listen for Email.js ready event from HTML
 document.addEventListener('emailjsready', function() {
   emailjsReady = true;
-  console.log('✓ Script detected Email.js is ready');
+  console.log('✓ Script.js detected Email.js is ready');
 });
 
-// Also check periodically
+// Fallback check after 2 seconds (in case event doesn't fire)
 setTimeout(() => {
   if (typeof emailjs !== 'undefined' && !emailjsReady) {
     emailjsReady = true;
-    console.log('✓ Email.js detected as ready');
+    console.log('✓ Script.js detected emailjs is available (fallback check)');
+  } else if (typeof emailjs === 'undefined') {
+    console.warn('⚠ Email.js still not available after 2 seconds');
   }
-}, 1000);
+}, 2000);
 
 console.log('✓ Script.js loaded');
 
@@ -123,20 +125,26 @@ function handleForm(e) {
   
   btn.textContent = 'Sending...';
   
-  // Check if Email.js is ready
-  if (typeof emailjs === 'undefined' || !emailjsReady) {
-    console.error('✗ emailjs not ready. emailjs type:', typeof emailjs, 'ready flag:', emailjsReady);
-    btn.textContent = '✗ Service unavailable';
-    setTimeout(() => { 
-      btn.textContent = 'Send Message →';
-    }, 3000);
-    console.warn('⚠ Email.js is unavailable. Contact form requires a live HTTP(S) page and Email.js service.');
+  // Check if Email.js is ready (with detailed logging)
+  if (typeof emailjs === 'undefined') {
+    console.error('✗ emailjs is undefined');
+    btn.textContent = '✗ Email.js not loaded';
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
     return;
   }
   
+  if (!emailjsReady) {
+    console.error('✗ emailjsReady flag is false. emailjs type:', typeof emailjs);
+    btn.textContent = '✗ Service initializing...';
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
+    return;
+  }
+  
+  console.log('✓ Email.js is ready. Sending email...');
+  
   // Prepare email parameters
   const templateParams = {
-    to_email: 'manisabari2004@gmail.com',
+    to_email: '210701218@rajalakshmi.edu.in',
     from_name: userName,
     from_email: userEmail,
     project_name: projectName || 'Not specified',
@@ -144,8 +152,7 @@ function handleForm(e) {
     reply_to: userEmail
   };
   
-  console.log('📧 Sending email...');
-  console.log('Params:', templateParams);
+  console.log('📧 Email parameters:', templateParams);
   
   try {
     emailjs.send('service_d2g9qhs', 'template_okvmmbs', templateParams)
