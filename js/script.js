@@ -33,6 +33,41 @@ document.querySelectorAll('a, button, .skill-card, .project-card, .template-card
   });
 });
 
+// Hamburger Menu
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-links-mobile a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+
+// Theme Toggle (Dark/Light Mode)
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+
+if (savedTheme === 'light') {
+  document.body.classList.add('light-mode');
+  themeToggle.textContent = '🌙';
+} else {
+  document.body.classList.remove('light-mode');
+  themeToggle.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  themeToggle.textContent = isLight ? '🌙' : '☀️';
+});
+
 // Scroll reveal
 function revealOnScroll() {
   const reveals = document.querySelectorAll('.reveal');
