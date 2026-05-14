@@ -179,7 +179,7 @@ body.light-mode nav {
   border-radius: 6px;
   transition: all 0.3s;
   margin-left: 20px;
-  display: none;
+  display: block;
 }
 .theme-toggle:hover {
   border-color: var(--accent);
@@ -1454,17 +1454,25 @@ footer {
     gap: 24px;
   }
   .about-img-wrap {
-    margin-top: 0;
-    max-width: 100%;
+    margin: 0 auto;
+    max-width: 200px;
     aspect-ratio: 3/4;
   }
   .about-img-wrap::before {
-    left: 0;
-    right: 0;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    inset: 2px;
   }
   .about-img-inner {
-    left: 0;
-    right: 0;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    inset: 4px;
+    width: auto;
+    height: auto;
   }
   .about-img-label {
     bottom: -16px;
@@ -1554,6 +1562,8 @@ footer {
   }
   .about-img-wrap {
     aspect-ratio: 3/4;
+    max-width: 160px;
+    margin: 0 auto;
   }
   .about-text p {
     font-size: 0.85rem;
