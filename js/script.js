@@ -126,11 +126,18 @@ function handleForm(e) {
   // Check if Email.js is ready
   if (typeof emailjs === 'undefined' || !emailjsReady) {
     console.error('✗ emailjs not ready. emailjs type:', typeof emailjs, 'ready flag:', emailjsReady);
-    btn.textContent = '✗ Service loading...';
+    btn.textContent = '✗ Service unavailable';
     setTimeout(() => { 
       btn.textContent = 'Send Message →';
-      console.warn('⚠ Email.js still not ready - try again in a moment');
+      console.warn('⚠ Email.js still not ready - falling back to form action if available');
     }, 3000);
+
+    if (form && form.action) {
+      setTimeout(() => {
+        console.warn('⚠ Falling back to native form submit');
+        form.submit();
+      }, 800);
+    }
     return;
   }
   
@@ -168,18 +175,10 @@ function handleForm(e) {
 }
 
 // Attach form submission handler
-document.addEventListener('DOMContentLoaded', function() {
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', handleForm);
-    console.log('✓ Contact form listener attached');
-  }
-});
-
-// Also try immediately in case DOM is already loaded
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', handleForm);
+  console.log('✓ Contact form listener attached');
 }
 
 // Nav active state
@@ -199,31 +198,38 @@ const techStackBtn = document.getElementById('techStackBtn');
 const techStackModalClose = document.getElementById('techStackModalClose');
 
 function openTechStackModal() {
+  if (!techStackModal) return;
   techStackModal.classList.add('active');
+  techStackModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
 
 function closeTechStackModal() {
+  if (!techStackModal) return;
   techStackModal.classList.remove('active');
+  techStackModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = 'auto'; // Allow scrolling
 }
 
-// Open modal on button click
-techStackBtn.addEventListener('click', openTechStackModal);
+if (techStackBtn) {
+  techStackBtn.addEventListener('click', openTechStackModal);
+}
 
-// Close modal on close button
-techStackModalClose.addEventListener('click', closeTechStackModal);
+if (techStackModalClose) {
+  techStackModalClose.addEventListener('click', closeTechStackModal);
+}
 
-// Close modal when clicking outside
-techStackModal.addEventListener('click', (e) => {
-  if (e.target === techStackModal) {
-    closeTechStackModal();
-  }
-});
+if (techStackModal) {
+  techStackModal.addEventListener('click', (e) => {
+    if (e.target === techStackModal) {
+      closeTechStackModal();
+    }
+  });
+}
 
 // Close modal on ESC key
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && techStackModal.classList.contains('active')) {
+  if (e.key === 'Escape' && techStackModal && techStackModal.classList.contains('active')) {
     closeTechStackModal();
   }
 });
@@ -240,13 +246,17 @@ document.addEventListener('DOMContentLoaded', function() {
   function openComingSoon(e) {
     e.preventDefault();
     e.stopPropagation();
+    if (!comingSoonModal) return;
     console.log('Opening modal...');
     comingSoonModal.classList.add('active');
+    comingSoonModal.setAttribute('aria-hidden', 'false');
   }
 
   // Close coming soon modal
   function closeComingSoon() {
+    if (!comingSoonModal) return;
     comingSoonModal.classList.remove('active');
+    comingSoonModal.setAttribute('aria-hidden', 'true');
   }
 
   // Use event delegation for project overlay links
@@ -255,23 +265,27 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       e.stopPropagation();
       console.log('View Case Study clicked!');
-      comingSoonModal.classList.add('active');
+      openComingSoon(e);
     }
   });
 
   // Close button
-  closeComingSoonBtn.addEventListener('click', closeComingSoon);
+  if (closeComingSoonBtn) {
+    closeComingSoonBtn.addEventListener('click', closeComingSoon);
+  }
 
   // Close when clicking outside modal
-  comingSoonModal.addEventListener('click', (e) => {
-    if (e.target === comingSoonModal) {
-      closeComingSoon();
-    }
-  });
+  if (comingSoonModal) {
+    comingSoonModal.addEventListener('click', (e) => {
+      if (e.target === comingSoonModal) {
+        closeComingSoon();
+      }
+    });
+  }
 
   // Close on ESC key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && comingSoonModal.classList.contains('active')) {
+    if (e.key === 'Escape' && comingSoonModal && comingSoonModal.classList.contains('active')) {
       closeComingSoon();
     }
   });

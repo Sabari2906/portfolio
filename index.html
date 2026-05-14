@@ -58,9 +58,9 @@
 </section>
 
 <!-- TECH STACK MODAL -->
-<div class="tech-stack-modal" id="techStackModal">
+<div class="tech-stack-modal" id="techStackModal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="tech-stack-modal-content">
-    <button class="tech-stack-modal-close" id="techStackModalClose">&times;</button>
+    <button class="tech-stack-modal-close" id="techStackModalClose" aria-label="Close tech stack modal">&times;</button>
     <div class="tech-stack-modal-header">
       <h2>My Tech Stack</h2>
       <p>Tools & Technologies I Work With</p>
@@ -371,21 +371,21 @@ Features include user authentication, progress tracking, and multimedia content 
       </div>
     </div>
     <div class="contact-form-wrap reveal reveal-delay-2">
-      <form class="contact-form" id="contactForm" novalidate>
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/xyzgqdnd" method="POST">
         <div class="form-group">
-          <input type="text" id="user_name" placeholder="Your Name" maxlength="100" required>
+          <input id="user_name" type="text" name="name" placeholder="Your Name" maxlength="100" required>
         </div>
         <div class="form-group">
-          <input type="email" id="user_email" placeholder="Email Address" maxlength="100" required>
+          <input id="user_email" type="email" name="email" placeholder="Email Address" maxlength="100" required>
         </div>
         <div class="form-group">
-          <input type="text" id="project_name" placeholder="Project Name" maxlength="100">
+          <input id="project_name" type="text" name="project_name" placeholder="Project Name" maxlength="100">
         </div>
         <div class="form-group">
-          <textarea id="message" rows="5" placeholder="Tell me about your project or idea..." maxlength="1000" required></textarea>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or idea..." maxlength="1000" required></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="border:none;cursor:pointer;width:100%;font-size:0.78rem;">
-          <span id="btn-text">Send Message →</span>
+        <button id="btn-text" type="submit" class="btn-primary" style="border:none;cursor:pointer;width:100%;font-size:0.78rem;">
+          <span>Send Message →</span>
         </button>
       </form>
     </div>
@@ -404,9 +404,9 @@ Features include user authentication, progress tracking, and multimedia content 
 </footer>
 
 <!-- COMING SOON MODAL -->
-<div class="coming-soon-modal" id="comingSoonModal">
+<div class="coming-soon-modal" id="comingSoonModal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="coming-soon-content">
-    <button class="coming-soon-close" id="closeComingSoon">✕</button>
+    <button class="coming-soon-close" id="closeComingSoon" aria-label="Close coming soon modal">✕</button>
     <div class="coming-soon-inner">
       <div class="coming-soon-icon">🚀</div>
       <h2 class="coming-soon-title">Coming Soon</h2>
