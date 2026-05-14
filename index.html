@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14' font-size='16'%3ES%3C/text%3E%3C/svg%3E">
 <body>
 
 <div class="cursor" id="cursor"></div>
@@ -95,7 +95,7 @@
         <span>GitHub</span>
       </div>
       <div class="tech-item">
-        <img src="assets/images/tech/mysql.png" alt="MySQL">
+        <img src="assets/images/tech/MySQL.png" alt="MySQL">
         <span>MySQL</span>
       </div>
       <div class="tech-item">
@@ -103,7 +103,7 @@
         <span>VSCode</span>
       </div>
       <div class="tech-item">
-        <img src="assets/images/tech/docker.png" alt="Docker">
+        <img src="assets/images/tech/Docker.png" alt="Docker">
         <span>Docker</span>
       </div>
       <div class="tech-item">
@@ -422,24 +422,24 @@ Features include user authentication, progress tracking, and multimedia content 
   </div>
 </div>
 
-<script src="https://unpkg.com/@emailjs/browser@4/dist/index.global.js"></script>
 <script>
-  // Wait for Email.js to load
-  function initEmailJS() {
+  // Dynamically load Email.js with onload / onerror handling.
+  const emailjsScript = document.createElement('script');
+  emailjsScript.src = 'https://unpkg.com/@emailjs/browser@4/dist/index.global.js';
+  emailjsScript.onload = () => {
     if (typeof emailjs !== 'undefined') {
       emailjs.init('xtDHmh9-3ydF-VOTI');
       console.log('✓ Email.js initialized successfully');
       window.emailjsReady = true;
-      // Trigger custom event for other scripts
       document.dispatchEvent(new Event('emailjsready'));
     } else {
-      console.warn('Email.js not loaded yet, retrying...');
-      setTimeout(initEmailJS, 500);
+      console.error('✗ Email.js loaded, but emailjs is undefined.');
     }
-  }
-  
-  // Start initialization immediately
-  initEmailJS();
+  };
+  emailjsScript.onerror = () => {
+    console.error('✗ Failed to load Email.js. Please check network access or script URL.');
+  };
+  document.head.appendChild(emailjsScript);
 </script>
 <script src="js/script.js"></script>
 </body>
