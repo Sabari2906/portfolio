@@ -707,12 +707,13 @@ section {
 .project-stack { display: flex; gap: 8px; flex-wrap: wrap; }
 .project-tech {
   font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
-  padding: 3px 10px;
+  font-size: 0.7rem;
+  padding: 4px 12px;
   border: 1px solid var(--border);
-  color: var(--text2);
+  color: var(--accent);
   letter-spacing: 0.08em;
   transition: all 0.3s;
+  white-space: nowrap;
 }
 .project-card:hover .project-tech {
   border-color: rgba(0,212,255,0.25);
@@ -738,9 +739,10 @@ section {
 .project-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(135deg, rgba(0,212,255,0.92), rgba(123,97,255,0.88));
-  display: flex; flex-direction: column; justify-content: center; padding: 40px 36px;
+  display: flex; flex-direction: column; padding: 40px 36px;
   transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 .project-card:hover .project-overlay { transform: translateY(0); }
 .project-overlay-title {
@@ -755,6 +757,26 @@ section {
   color: rgba(7,10,15,0.85);
   line-height: 1.7;
   margin-bottom: 20px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.project-overlay-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.project-overlay-body::-webkit-scrollbar-track {
+  background: rgba(7,10,15,0.1);
+}
+
+.project-overlay-body::-webkit-scrollbar-thumb {
+  background: rgba(7,10,15,0.3);
+  border-radius: 3px;
+}
+
+.project-overlay-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(7,10,15,0.5);
 }
 .project-overlay-link {
   font-family: 'DM Mono', monospace;
@@ -1535,9 +1557,43 @@ footer {
     gap: 16px;
   }
   .about-img-wrap {
+    position: relative;
+    width: 160px;
+    height: 213px;
     aspect-ratio: 3/4;
-    max-width: 160px;
     margin: 0 auto;
+  }
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3), transparent 60%);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    z-index: 1;
+  }
+  .about-img-inner {
+    position: absolute;
+    inset: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background: linear-gradient(135deg, var(--bg3), var(--bg2));
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    object-fit: cover;
+    z-index: 2;
+  }
+  .about-img-label {
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 6px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+    z-index: 3;
   }
   .about-text p {
     font-size: 0.85rem;
