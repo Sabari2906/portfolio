@@ -1495,6 +1495,7 @@ footer {
   
   .contact-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .skills-grid, .projects-grid, .insights-grid, .template-grid { grid-template-columns: 1fr; }
+  .project-card-inner { padding: 24px 20px; }
   .impact-bar { grid-template-columns: repeat(2, 1fr); }
   .workflow-diagram { flex-direction: column; align-items: flex-start; }
   footer { flex-direction: column; gap: 16px; text-align: center; }
@@ -1581,6 +1582,8 @@ footer {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  
+  .project-card-inner { padding: 16px 14px; }
   
   .section-header { margin-bottom: 24px; }
   .section-title { font-size: 1.4rem; }
