@@ -129,15 +129,8 @@ function handleForm(e) {
     btn.textContent = '✗ Service unavailable';
     setTimeout(() => { 
       btn.textContent = 'Send Message →';
-      console.warn('⚠ Email.js still not ready - falling back to form action if available');
     }, 3000);
-
-    if (form && form.action) {
-      setTimeout(() => {
-        console.warn('⚠ Falling back to native form submit');
-        form.submit();
-      }, 800);
-    }
+    console.warn('⚠ Email.js is unavailable. Contact form requires a live HTTP(S) page and Email.js service.');
     return;
   }
   
