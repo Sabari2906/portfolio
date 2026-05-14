@@ -332,62 +332,35 @@ Features include user authentication, progress tracking, and multimedia content 
 <section id="contact">
   <div class="section-header reveal">
     <div class="section-tag">Let's Connect</div>
-    <h2 class="section-title">Start a <em>Conversation</em></h2>
+    <h2 class="section-title">Get in <em>Touch</em></h2>
   </div>
-  <div class="contact-inner">
-    <div>
-      <p class="reveal" style="color:var(--text2); line-height:1.8; max-width:420px; margin-bottom:8px;">
-        Whether you're looking to build something ambitious, solve a technical problem, or just want to talk — I'm always interested in meaningful work.
-      </p>
-      <div class="contact-info-list">
-        <div class="contact-info-item reveal reveal-delay-1">
-          <div class="contact-info-icon">✉</div>
-          <div>
-            <div class="contact-info-label">Email</div>
-            <div class="contact-info-value">manisabari2004@gmail.com</div>
-          </div>
-        </div>
-        <div class="contact-info-item reveal reveal-delay-2">
-          <div class="contact-info-icon">𝕏</div>
-          <div>
-            <div class="contact-info-label">Twitter</div>
-            <div class="contact-info-value">_Sabari_29</div>
-          </div>
-        </div>
-        <div class="contact-info-item reveal reveal-delay-3">
-          <div class="contact-info-icon">ln</div>
-          <div>
-            <div class="contact-info-label">LinkedIn</div>
-            <div class="contact-info-value">linkedin.com/in/sabarimani</div>
-          </div>
-        </div>
-        <div class="contact-info-item reveal reveal-delay-4">
-          <div class="contact-info-icon">⌂</div>
-          <div>
-            <div class="contact-info-label">Location</div>
-            <div class="contact-info-value">Chennai</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="contact-form-wrap reveal reveal-delay-2">
-      <form id="contactForm" class="contact-form" action="#" method="POST" novalidate>
-        <div class="form-group">
-          <input id="user_name" type="text" name="name" placeholder="Your Name" maxlength="100" required>
-        </div>
-        <div class="form-group">
-          <input id="user_email" type="email" name="email" placeholder="Email Address" maxlength="100" required>
-        </div>
-        <div class="form-group">
-          <input id="project_name" type="text" name="project_name" placeholder="Project Name" maxlength="100">
-        </div>
-        <div class="form-group">
-          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or idea..." maxlength="1000" required></textarea>
-        </div>
-        <button id="btn-text" type="submit" class="btn-primary" style="border:none;cursor:pointer;width:100%;font-size:0.78rem;">
-          <span>Send Message →</span>
-        </button>
-      </form>
+  <p class="reveal" style="color:var(--text2); line-height:1.8; max-width:600px; margin:0 auto 60px; text-align:center;">
+    Whether you're looking to build something ambitious, solve a technical problem, or just want to talk — I'm always interested in meaningful work.
+  </p>
+  <div class="contact-cards-grid">
+    <a href="mailto:manisabari2004@gmail.com" class="contact-card reveal">
+      <div class="contact-card-icon">✉</div>
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">manisabari2004@gmail.com</div>
+      <div class="contact-card-arrow">→</div>
+    </a>
+    <a href="https://x.com/_sabari_29?s=11" target="_blank" class="contact-card reveal reveal-delay-1">
+      <div class="contact-card-icon">𝕏</div>
+      <div class="contact-card-label">Twitter</div>
+      <div class="contact-card-value">_Sabari_29</div>
+      <div class="contact-card-arrow">→</div>
+    </a>
+    <a href="https://www.linkedin.com/in/sabarimani-s-35b1a0249/" target="_blank" class="contact-card reveal reveal-delay-2">
+      <div class="contact-card-icon">ln</div>
+      <div class="contact-card-label">LinkedIn</div>
+      <div class="contact-card-value">sabarimani</div>
+      <div class="contact-card-arrow">→</div>
+    </a>
+    <div class="contact-card reveal reveal-delay-3">
+      <div class="contact-card-icon">⌂</div>
+      <div class="contact-card-label">Location</div>
+      <div class="contact-card-value">Chennai, India</div>
+      <div class="contact-card-arrow">📍</div>
     </div>
   </div>
 </section>
@@ -422,27 +395,6 @@ Features include user authentication, progress tracking, and multimedia content 
   </div>
 </div>
 
-<script async src="https://unpkg.com/@emailjs/browser@4/dist/index.global.js"></script>
-<script>
-  // Initialize Email.js when ready
-  function initEmailJSWhenReady() {
-    if (typeof emailjs !== 'undefined') {
-      emailjs.init('xtDHmh9-3ydF-VOTI');
-      console.log('✓ Email.js initialized successfully');
-      window.emailjsReady = true;
-      document.dispatchEvent(new Event('emailjsready'));
-    } else if (window.emailjsRetries < 50) {
-      window.emailjsRetries = (window.emailjsRetries || 0) + 1;
-      setTimeout(initEmailJSWhenReady, 100);
-    } else {
-      console.error('✗ Email.js failed to load after 5 seconds');
-      window.emailjsReady = false;
-    }
-  }
-  
-  // Start checking immediately
-  initEmailJSWhenReady();
-</script>
 <script src="js/script.js"></script>
 </body>
 </html>
