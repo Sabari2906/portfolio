@@ -1453,33 +1453,6 @@ footer {
     grid-template-columns: 1fr; 
     gap: 24px;
   }
-  .about-img-wrap {
-    margin: 0 auto;
-    max-width: 200px;
-    aspect-ratio: 3/4;
-  }
-  .about-img-wrap::before {
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    inset: 2px;
-  }
-  .about-img-inner {
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    inset: 4px;
-    width: auto;
-    height: auto;
-  }
-  .about-img-label {
-    bottom: -16px;
-    right: -16px;
-    font-size: 0.6rem;
-    padding: 8px 16px;
-  }
   .about-text p {
     font-size: 0.9rem;
     line-height: 1.6;
